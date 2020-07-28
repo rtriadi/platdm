@@ -21,12 +21,12 @@
 		<div class="col-12">
 			<div class="card">
 				<!-- DataTales Example -->
-				<div class="card card-primary">
+				<div class="card card-info">
 					<div class="card-header">
 						<h3 class="card-title">
 							<?= ucfirst($page) ?> SPD Admin <?= $kantor ?></h3>
 						<div style="float: right">
-							<a href="<?= site_url('spd_admin') ?>" class="btn btn-sm btn-success">
+							<a href="<?= site_url('spd_admin') ?>" class="btn btn-sm bg-yellow">
 								<i class="fa fa-user-undo"></i> Back
 							</a>
 						</div>

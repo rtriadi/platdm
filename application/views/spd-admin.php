@@ -28,12 +28,12 @@
 						</button>
 					</div>
 				<?php endif; ?>
-				<div class="card">
+				<div class="card card-info">
 					<div class="card-header">
 						<h3 class="card-title"><?= $page ?> <b>(Total : Rp. <?php foreach ($total->result() as $key => $datass) { echo number_format($datass->total_bayar); } ?>)</b></h3>
-						<a href="<?= site_url('spd_admin/export_excel') ?>" class="btn btn-sm btn-primary" style="float: right; margin-left: 2px"><i class="fas fa-download"></i> Excel </a>
-						<button type="button" class="btn btn-sm btn-success" style="float: right; margin-left: 2px" data-toggle="modal" data-target="#import"><i class="fa fa-upload"></i> Import</button>
-						<a href="<?= site_url('spd_admin/add') ?>" class="btn btn-sm btn-info" style="float: right;"><i class="fas fa-plus"></i> Tambah </a>
+						<a href="<?= site_url('spd_admin/export_excel') ?>" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px"><i class="fas fa-download"></i> Excel </a>
+						<button type="button" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px; color:white" data-toggle="modal" data-target="#import"><i class="fa fa-upload"></i> Import</button>
+						<a href="<?= site_url('spd_admin/add') ?>" class="btn btn-sm bg-yellow" style="float: right;"><i class="fas fa-plus"></i> Tambah </a>
 					</div>
 					<div class="modal fade" id="import">
 						<div class="modal-dialog">
@@ -108,8 +108,8 @@
 								</div>
 								<!-- /.modal-dialog -->
 							</div>
-						<table id="example1" class="table table-bordered table-striped" style="width: 100%;">
-							<thead>
+						<table id="example1" class="table table-sm table-bordered" style="width: 100%;">
+							<thead class="thead-light">
 								<tr>
 								    <th><input type="checkbox" id="check-all"><label for="check-all"> </label></th>
 									<!--<th>No</th>-->

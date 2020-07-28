@@ -163,13 +163,13 @@
 		</div>-->
 		<div class="row">
 			<div class="col-12">
-				<div class="card">
+				<div class="card card-info">
 					<div class="card-header">
 						<h3 class="card-title">Rekap PAGU</h3>
 					</div>
 					<div class="card-body">
-						<table id="example" class="table table-bordered table-striped">
-							<thead>
+						<table id="example" class="table table-bordered table-sm">
+							<thead class="thead-light">
 								<tr>
 									<th>KETERANGAN</th>
 									<th>KODE DIPA</th>
