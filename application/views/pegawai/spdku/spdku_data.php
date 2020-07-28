@@ -98,10 +98,10 @@
 													<?php if ($data->status < 5) : ?>
 
 														<?php if ($data->status != 4) : ?>
-														    <?php if ($data->status == 0) : ?>
-															<a href="<?= site_url('spdku/rincian/' . $data->id) ?>" class="btn btn-sm bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD">
-																<i class="fa fa-envelope-open-text"></i>
-															</a>
+															<?php if ($data->status == 0) : ?>
+																<a href="<?= site_url('spdku/rincian/' . $data->id) ?>" class="btn btn-sm bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD">
+																	<i class="fa fa-envelope-open-text"></i>
+																</a>
 															<?php endif ?>
 															<?php if ($data->pengeluaran_riil != null || $data->pengeluaran_riil != '') : ?>
 																<a href="<?= site_url('spdku/laporan/pengeluaran_riil/' . $data->id) ?>" target="_blank" class="btn btn-sm bg-lightblue" data-toggle="tooltip" data-placement="top" title="Daftar Pengeluaran Riil">
@@ -135,7 +135,7 @@
 																</button>
 															</div>
 															<div class="modal-body table-responsive" style="height: 500px; overflow-y: auto;">
-																
+
 																<table id="example1" class="table table-condensed">
 																	<tr align="center">
 																		<th colspan="3">RINCIAN BIAYA PERJALANAN DINAS</th>
@@ -174,7 +174,7 @@
 																				<span><?= $data->tujuan4 != null ? ', ' . getCityById($data->tujuan4) : '' ?></span>
 																				<br>
 																				<span id="tgl_berangkat"><?= tgl_ind($data->tgl_berangkat) ?></span> s/d <span id="tgl_selesai"><?= tgl_ind($data->tgl_selesai) ?></span><br>
-																				<span id="lamanya"><?= $data->lamanya .' Hari' ?></span>
+																				<span id="lamanya"><?= $data->lamanya . ' Hari' ?></span>
 																			</td>
 																			<td><span><?= getSPDpegawaiById($data->id)->grand_total_uh != null ? indo_currency(getSPDpegawaiById($data->id)->grand_total_uh) : '' ?></span></td>
 																			<td><span id="grand_total_uh"><?= indo_currency($data->grand_total_uh) ?></span></td>
@@ -261,16 +261,15 @@
 																			<td></td>
 																		</tr>
 																	</tbody>
-																	<table class="table table-condensed">
-																	    <tr>
-																	        <th>LAPORAN PELAKSANAAN TUGAS</th>
-																	    </tr>
-																	    <tr>
-																	        <td><?= $data->isi_laporan ?></td>
-																	    </tr>
-																	</table>
 																</table>
-																
+																<table class="table table-condensed">
+																	<tr>
+																		<th>LAPORAN PELAKSANAAN TUGAS</th>
+																	</tr>
+																	<tr>
+																		<td><?= $data->isi_laporan ?></td>
+																	</tr>
+																</table>
 															</div>
 														</div>
 														<!-- /.modal-content -->
