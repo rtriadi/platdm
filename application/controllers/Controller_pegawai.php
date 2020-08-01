@@ -28,6 +28,32 @@ class Controller_pegawai extends CI_Controller
 		$this->template->load('template', 'pegawai/spdku/spdku_data', $data);
 	}
 
+	public function approve_spdku()
+	{
+		$post = $this->input->post(null, TRUE);
+		if (isset($post['approve'])) {
+			$params = array(
+				'status_ppk' => '1'
+			);
+			$this->db->where('id', $post['id']);
+			$this->db->update('spd', $params);
+			redirect('spdku/approve_spdku');
+		} else {
+			if ($this->fungsi->user_login()->kantor == 'KP2KP Limboto') {
+				$sort = '1';
+			} elseif ($this->fungsi->user_login()->kantor == 'KP2KP Tilamuta') {
+				$sort = '2';
+			} elseif ($this->fungsi->user_login()->kantor == 'KP2KP Marissa') {
+				$sort = '3';
+			} else {
+				$sort = '0';
+			}
+			$data['format'] = $this->model_setting->getSetting($sort, '1')->row();
+			$data['row'] = $this->model_pegawai->getApproveSPDbyNip($this->fungsi->user_login()->nip);
+			$this->template->load('template', 'pegawai/spdku/approve_spdku', $data);
+		}
+	}
+
 	public function laporan_pengeluaran_riil($id)
 	{
 		if ($this->fungsi->user_login()->level == 4) {
@@ -321,9 +347,9 @@ class Controller_pegawai extends CI_Controller
 			$potongan_tukin = $this->model_pegawai->potongan_tukin($bln_thn, $nip)->row();
 
 			$jumlah_potongan = $potongan_tukin->absensi +
-			    $potongan_tukin->futsal +
-			    $potongan_tukin->prodip_manado +
-			    $potongan_tukin->tinelo +
+				$potongan_tukin->futsal +
+				$potongan_tukin->prodip_manado +
+				$potongan_tukin->tinelo +
 				$potongan_tukin->asuransi_kolektif +
 				$potongan_tukin->panti +
 				$potongan_tukin->yayasan +
@@ -478,9 +504,9 @@ class Controller_pegawai extends CI_Controller
 			$potongan_tukin = $this->model_pegawai->potongan_tukin($bln_thn, $nip)->row();
 
 			$jumlah_potongan = $potongan_tukin->absensi +
-			    $potongan_tukin->futsal +
-			    $potongan_tukin->prodip_manado +
-			    $potongan_tukin->tinelo +
+				$potongan_tukin->futsal +
+				$potongan_tukin->prodip_manado +
+				$potongan_tukin->tinelo +
 				$potongan_tukin->asuransi_kolektif +
 				$potongan_tukin->panti +
 				$potongan_tukin->yayasan +
@@ -714,15 +740,15 @@ class Controller_pegawai extends CI_Controller
 	{
 		$insert = 0;
 		$update = 0;
-// 		if ($this->fungsi->user_login()->kantor == 'KP2KP Limboto') {
-// 			$sort = '1';
-// 		} elseif ($this->fungsi->user_login()->kantor == 'KP2KP Tilamuta') {
-// 			$sort = '2';
-// 		} elseif ($this->fungsi->user_login()->kantor == 'KP2KP Marissa') {
-// 			$sort = '3';
-// 		} else {
-// 			$sort = '0';
-// 		}
+		// 		if ($this->fungsi->user_login()->kantor == 'KP2KP Limboto') {
+		// 			$sort = '1';
+		// 		} elseif ($this->fungsi->user_login()->kantor == 'KP2KP Tilamuta') {
+		// 			$sort = '2';
+		// 		} elseif ($this->fungsi->user_login()->kantor == 'KP2KP Marissa') {
+		// 			$sort = '3';
+		// 		} else {
+		// 			$sort = '0';
+		// 		}
 
 		$path = 'uploads/import/';
 		require_once APPPATH . "/third_party/PHPExcel.php";
@@ -758,150 +784,150 @@ class Controller_pegawai extends CI_Controller
 					}
 
 					if ($value['C'] != '') {
-					$pecahtglspd = explode(' ', $value['H']);
-					$tglspd = tgl_sql($pecahtglspd[0], $pecahtglspd[1], $pecahtglspd[2]);
+						$pecahtglspd = explode(' ', $value['H']);
+						$tglspd = tgl_sql($pecahtglspd[0], $pecahtglspd[1], $pecahtglspd[2]);
 
-					$pecahtglberangkat = explode(' ', $value['L']);
-					$tglberangkat = tgl_sql($pecahtglberangkat[0], $pecahtglberangkat[1], $pecahtglberangkat[2]);
+						$pecahtglberangkat = explode(' ', $value['L']);
+						$tglberangkat = tgl_sql($pecahtglberangkat[0], $pecahtglberangkat[1], $pecahtglberangkat[2]);
 
-					$pecahtglselesai = explode(' ', $value['N']);
-					$tglselesai = tgl_sql($pecahtglselesai[0], $pecahtglselesai[1], $pecahtglselesai[2]);
+						$pecahtglselesai = explode(' ', $value['N']);
+						$tglselesai = tgl_sql($pecahtglselesai[0], $pecahtglselesai[1], $pecahtglselesai[2]);
 
-					$pecahtglst = explode(' ', $value['R']);
-					$tglst = tgl_sql($pecahtglst[0], $pecahtglst[1], $pecahtglst[2]);
+						$pecahtglst = explode(' ', $value['R']);
+						$tglst = tgl_sql($pecahtglst[0], $pecahtglst[1], $pecahtglst[2]);
 
-					if ($value['AB'] != '') {
-						$pecahtgl_menginap_dari = explode(' ', $value['AB']);
-						$tgl_menginap_dari = tgl_sql($pecahtgl_menginap_dari[0], $pecahtgl_menginap_dari[1], $pecahtgl_menginap_dari[2]);
-					} else {
-						$tgl_menginap_dari = null;
-					}
+						if ($value['AB'] != '') {
+							$pecahtgl_menginap_dari = explode(' ', $value['AB']);
+							$tgl_menginap_dari = tgl_sql($pecahtgl_menginap_dari[0], $pecahtgl_menginap_dari[1], $pecahtgl_menginap_dari[2]);
+						} else {
+							$tgl_menginap_dari = null;
+						}
 
-					if ($value['AC'] != '') {
-						$pecahtgl_menginap_sampai = explode(' ', $value['AC']);
-						$tgl_menginap_sampai = tgl_sql($pecahtgl_menginap_sampai[0], $pecahtgl_menginap_sampai[1], $pecahtgl_menginap_sampai[2]);
-					} else {
-						$tgl_menginap_sampai = null;
-					}
+						if ($value['AC'] != '') {
+							$pecahtgl_menginap_sampai = explode(' ', $value['AC']);
+							$tgl_menginap_sampai = tgl_sql($pecahtgl_menginap_sampai[0], $pecahtgl_menginap_sampai[1], $pecahtgl_menginap_sampai[2]);
+						} else {
+							$tgl_menginap_sampai = null;
+						}
 
-					if ($value['AL'] == 'SPD DIBATALKAN') {
-						$status = '5';
-					} elseif ($value['AL'] == 'TELAH BAYAR') {
-						$status = '4';
-					} elseif ($value['AL'] == 'BERKAS DITERIMA' || $value['AL'] == 'Berkas Diterima') {
-						$status = '1';
-					} elseif ($value['AL'] == 'OK') {
-						$status = '2';
-					} else {
-						$status = '0';
-					}
+						if ($value['AL'] == 'SPD DIBATALKAN') {
+							$status = '5';
+						} elseif ($value['AL'] == 'TELAH BAYAR') {
+							$status = '4';
+						} elseif ($value['AL'] == 'BERKAS DITERIMA' || $value['AL'] == 'Berkas Diterima') {
+							$status = '1';
+						} elseif ($value['AL'] == 'OK') {
+							$status = '2';
+						} else {
+							$status = '0';
+						}
 
-					if ($value['AM'] != '') {
-						$pecahtgl_bayar = explode(' ', $value['AM']);
-						//$tgl_bayar = str_replace('/', '-', $pecahtgl_bayar[2]);
-						$pecahtgl_ls = explode('/', $pecahtgl_bayar[2]);
-						$tgl_bayar = tgl_excel($pecahtgl_ls[0], $pecahtgl_ls[1], $pecahtgl_ls[2]);
-						$ls = $pecahtgl_bayar[0].' '.$pecahtgl_bayar[1];
-					} else {
-						$tgl_bayar = '';
-						$ls = '';
-					}
+						if ($value['AM'] != '') {
+							$pecahtgl_bayar = explode(' ', $value['AM']);
+							//$tgl_bayar = str_replace('/', '-', $pecahtgl_bayar[2]);
+							$pecahtgl_ls = explode('/', $pecahtgl_bayar[2]);
+							$tgl_bayar = tgl_excel($pecahtgl_ls[0], $pecahtgl_ls[1], $pecahtgl_ls[2]);
+							$ls = $pecahtgl_bayar[0] . ' ' . $pecahtgl_bayar[1];
+						} else {
+							$tgl_bayar = '';
+							$ls = '';
+						}
 
-					if ($value['V'] != '-') {
-						$penye = $value['V'];
-						$uh = $value['U'];
-						$penyesuaian = ($penye / $uh)*100;
-					} else {
-						$penyesuaian = '-';
-					}
+						if ($value['V'] != '-') {
+							$penye = $value['V'];
+							$uh = $value['U'];
+							$penyesuaian = ($penye / $uh) * 100;
+						} else {
+							$penyesuaian = '-';
+						}
 
-					if ($value['S'] != '-' OR $value['S'] != '') {
-						$jlh_hari = $value['O'];
-					} else {
-						$jlh_hari = '';
-					}
+						if ($value['S'] != '-' or $value['S'] != '') {
+							$jlh_hari = $value['O'];
+						} else {
+							$jlh_hari = '';
+						}
 
-					$pecahtujuan = explode(',', $value['M']);
-					$hit = count($pecahtujuan);
-					if ($hit == 0) {
-						$pecahtujuan[0] = '';
-						$pecahtujuan[1] = '';
-						$pecahtujuan[2] = '';
-						$pecahtujuan[3] = '';
-					} elseif ($hit == 1) {
-						$pecahtujuan[1] = '';
-						$pecahtujuan[2] = '';
-						$pecahtujuan[3] = '';
-					} elseif ($hit == 2) {
-						$pecahtujuan[2] = '';
-						$pecahtujuan[3] = '';
-					} elseif ($hit == 3) {
-						$pecahtujuan[3] = '';
-					}
+						$pecahtujuan = explode(',', $value['M']);
+						$hit = count($pecahtujuan);
+						if ($hit == 0) {
+							$pecahtujuan[0] = '';
+							$pecahtujuan[1] = '';
+							$pecahtujuan[2] = '';
+							$pecahtujuan[3] = '';
+						} elseif ($hit == 1) {
+							$pecahtujuan[1] = '';
+							$pecahtujuan[2] = '';
+							$pecahtujuan[3] = '';
+						} elseif ($hit == 2) {
+							$pecahtujuan[2] = '';
+							$pecahtujuan[3] = '';
+						} elseif ($hit == 3) {
+							$pecahtujuan[3] = '';
+						}
 
 
-					$inserdata[$i]['nip_ppk']                   = '197203061992031001';
-					$inserdata[$i]['nip_bendahara']             = '199110222013101001';
-					//$inserdata[$i]['nip_atasan']                = $value['C'];
-					$inserdata[$i]['nip_pegawai']               = substr(str_replace(' ', '', $value['C']), 3);
-					$inserdata[$i]['no_spd']                    = $value['G'];
-					$inserdata[$i]['tgl_spd']                   = $tglspd;
-					$inserdata[$i]['maksud']                    = $value['I'];
-					$inserdata[$i]['kendaraan']                 = $value['J'];
-					$inserdata[$i]['lamanya']                   = $value['O'];
-					$inserdata[$i]['tgl_berangkat']             = $tglberangkat;
-					$inserdata[$i]['tujuan1']                   = $pecahtujuan[0];
-					$inserdata[$i]['tujuan2']                   = $pecahtujuan[1];
-					$inserdata[$i]['tujuan3']                   = $pecahtujuan[2];
-					$inserdata[$i]['tujuan4']                   = $pecahtujuan[3];
-					$inserdata[$i]['tgl_selesai']               = $tglselesai;
-					$inserdata[$i]['no_st']                     = substr($value['Q'], 3);
-					$inserdata[$i]['tgl_st']                    = $tglst;
-					$inserdata[$i]['uang_harian']               = $value['S'];
-					$inserdata[$i]['jlh_hari']                  = $jlh_hari;
-					$inserdata[$i]['total_uh']                  = $value['U'];
-					$inserdata[$i]['penyesuaian_uh']            = $penyesuaian;
-					$inserdata[$i]['uang_harian2']              = $value['T'];
-					//$inserdata[$i]['jlh_hari2']                 = $value['O'];
-					//$inserdata[$i]['total_uh2']                 = $value['O'];
-					//$inserdata[$i]['penyesuaian_uh2']           = $value['O'];
-					$inserdata[$i]['grand_total_uh']            = $value['W'];
-					$inserdata[$i]['by_transportasi_berangkat'] = $value['X']/2;
-					$inserdata[$i]['by_transportasi_pulang']    = $value['X']/2;
-					$inserdata[$i]['total_by_transportasi']     = $value['X'];
-					$inserdata[$i]['durasi_menginap']           = $value['Z'];
-					$inserdata[$i]['menginap_dari']             = $tgl_menginap_dari;
-					$inserdata[$i]['menginap_sampai']           = $tgl_menginap_sampai;
-					$inserdata[$i]['tarif_penginapan']          = $value['Y'];
-					// $inserdata[$i]['durasi_menginap2']          = $value['O'];
-					// $inserdata[$i]['menginap_dari2']            = $value['O'];
-					// $inserdata[$i]['menginap_sampai2']          = $value['O'];
-					$inserdata[$i]['tarif_penginapan2']         = $value['AD'];
-					// $inserdata[$i]['durasi_menginap3']          = $value['O'];
-					// $inserdata[$i]['menginap_dari3']            = $value['O'];
-					// $inserdata[$i]['menginap_sampai3']          = $value['O'];
-					// $inserdata[$i]['tarif_penginapan3']         = $value['O'];
-					$inserdata[$i]['total_by_penginapan']       = $value['AE'];
-					// $inserdata[$i]['pengeluaran1']              = $value['O'];
-					// $inserdata[$i]['pengeluaran2']              = $value['O'];
-					// $inserdata[$i]['pengeluaran3']              = $value['O'];
-					// $inserdata[$i]['pengeluaran4']              = $value['O'];
-					$inserdata[$i]['pengeluaran_riil']          = $value['AF'];
-					// $inserdata[$i]['total_biaya_spd']           = $value['O'];
-					$inserdata[$i]['grand_total']               = $value['AG'];
-					$inserdata[$i]['uang_muka']                 = $value['AH'];
-					$inserdata[$i]['kredit']                    = $value['AI'];
-					$inserdata[$i]['total_bayar']               = $value['AJ'];
-					$inserdata[$i]['kurang_lebih_bayar']        = $value['AK'];
-					$inserdata[$i]['status']                    = $status;
-					$inserdata[$i]['tgl_bayar']                 = $tgl_bayar;
-					// $inserdata[$i]['ket']                       = $value['O'];
-					$inserdata[$i]['ls']                        = $ls;
-					$inserdata[$i]['dipa']                      = $value['AN'];
-					// $inserdata[$i]['isi_laporan']               = $value['O'];
-					// $inserdata[$i]['kuitansi']                  = $value['O'];
-					$inserdata[$i]['sort']                      = $value['AQ'];
-					$i++;
+						$inserdata[$i]['nip_ppk']                   = '197203061992031001';
+						$inserdata[$i]['nip_bendahara']             = '199110222013101001';
+						//$inserdata[$i]['nip_atasan']                = $value['C'];
+						$inserdata[$i]['nip_pegawai']               = substr(str_replace(' ', '', $value['C']), 3);
+						$inserdata[$i]['no_spd']                    = $value['G'];
+						$inserdata[$i]['tgl_spd']                   = $tglspd;
+						$inserdata[$i]['maksud']                    = $value['I'];
+						$inserdata[$i]['kendaraan']                 = $value['J'];
+						$inserdata[$i]['lamanya']                   = $value['O'];
+						$inserdata[$i]['tgl_berangkat']             = $tglberangkat;
+						$inserdata[$i]['tujuan1']                   = $pecahtujuan[0];
+						$inserdata[$i]['tujuan2']                   = $pecahtujuan[1];
+						$inserdata[$i]['tujuan3']                   = $pecahtujuan[2];
+						$inserdata[$i]['tujuan4']                   = $pecahtujuan[3];
+						$inserdata[$i]['tgl_selesai']               = $tglselesai;
+						$inserdata[$i]['no_st']                     = substr($value['Q'], 3);
+						$inserdata[$i]['tgl_st']                    = $tglst;
+						$inserdata[$i]['uang_harian']               = $value['S'];
+						$inserdata[$i]['jlh_hari']                  = $jlh_hari;
+						$inserdata[$i]['total_uh']                  = $value['U'];
+						$inserdata[$i]['penyesuaian_uh']            = $penyesuaian;
+						$inserdata[$i]['uang_harian2']              = $value['T'];
+						//$inserdata[$i]['jlh_hari2']                 = $value['O'];
+						//$inserdata[$i]['total_uh2']                 = $value['O'];
+						//$inserdata[$i]['penyesuaian_uh2']           = $value['O'];
+						$inserdata[$i]['grand_total_uh']            = $value['W'];
+						$inserdata[$i]['by_transportasi_berangkat'] = $value['X'] / 2;
+						$inserdata[$i]['by_transportasi_pulang']    = $value['X'] / 2;
+						$inserdata[$i]['total_by_transportasi']     = $value['X'];
+						$inserdata[$i]['durasi_menginap']           = $value['Z'];
+						$inserdata[$i]['menginap_dari']             = $tgl_menginap_dari;
+						$inserdata[$i]['menginap_sampai']           = $tgl_menginap_sampai;
+						$inserdata[$i]['tarif_penginapan']          = $value['Y'];
+						// $inserdata[$i]['durasi_menginap2']          = $value['O'];
+						// $inserdata[$i]['menginap_dari2']            = $value['O'];
+						// $inserdata[$i]['menginap_sampai2']          = $value['O'];
+						$inserdata[$i]['tarif_penginapan2']         = $value['AD'];
+						// $inserdata[$i]['durasi_menginap3']          = $value['O'];
+						// $inserdata[$i]['menginap_dari3']            = $value['O'];
+						// $inserdata[$i]['menginap_sampai3']          = $value['O'];
+						// $inserdata[$i]['tarif_penginapan3']         = $value['O'];
+						$inserdata[$i]['total_by_penginapan']       = $value['AE'];
+						// $inserdata[$i]['pengeluaran1']              = $value['O'];
+						// $inserdata[$i]['pengeluaran2']              = $value['O'];
+						// $inserdata[$i]['pengeluaran3']              = $value['O'];
+						// $inserdata[$i]['pengeluaran4']              = $value['O'];
+						$inserdata[$i]['pengeluaran_riil']          = $value['AF'];
+						// $inserdata[$i]['total_biaya_spd']           = $value['O'];
+						$inserdata[$i]['grand_total']               = $value['AG'];
+						$inserdata[$i]['uang_muka']                 = $value['AH'];
+						$inserdata[$i]['kredit']                    = $value['AI'];
+						$inserdata[$i]['total_bayar']               = $value['AJ'];
+						$inserdata[$i]['kurang_lebih_bayar']        = $value['AK'];
+						$inserdata[$i]['status']                    = $status;
+						$inserdata[$i]['tgl_bayar']                 = $tgl_bayar;
+						// $inserdata[$i]['ket']                       = $value['O'];
+						$inserdata[$i]['ls']                        = $ls;
+						$inserdata[$i]['dipa']                      = $value['AN'];
+						// $inserdata[$i]['isi_laporan']               = $value['O'];
+						// $inserdata[$i]['kuitansi']                  = $value['O'];
+						$inserdata[$i]['sort']                      = $value['AQ'];
+						$i++;
 					}
 				}
 
@@ -980,77 +1006,76 @@ class Controller_pegawai extends CI_Controller
 						}
 					} else {
 						if ($dt['nip_pegawai'] != '') {
-						$datas = array(
-							'nip_ppk'                   => $dt['nip_ppk'],
-							'nip_bendahara'             => $dt['nip_bendahara'],
-							// 'nip_atasan'                => $dt['nip_atasan'],
-							'nip_pegawai'               => $dt['nip_pegawai'],
-							'no_spd'                    => $dt['no_spd'],
-							'tgl_spd'                   => $dt['tgl_spd'],
-							'maksud'                    => $dt['maksud'],
-							'kendaraan'                 => $dt['kendaraan'],
-							'lamanya'                   => $dt['lamanya'],
-							'tgl_berangkat'             => $dt['tgl_berangkat'],
-							'tujuan1'                   => $dt['tujuan1'],
-							'tujuan2'                   => $dt['tujuan2'],
-							'tujuan3'                   => $dt['tujuan3'],
-							'tujuan4'                   => $dt['tujuan4'],
-							'tgl_selesai'               => $dt['tgl_selesai'],
-							'no_st'                     => $dt['no_st'],
-							'tgl_st'                    => $dt['tgl_st'],
-							'uang_harian'               => $dt['uang_harian'],
-							'jlh_hari'                  => $dt['jlh_hari'],
-							'total_uh'                  => $dt['total_uh'],
-							'penyesuaian_uh'            => $dt['penyesuaian_uh'],
-							'uang_harian2'              => $dt['uang_harian2'],
-							// 'jlh_hari2'                 => $dt['jlh_hari2'],
-							// 'total_uh2'                 => $dt['total_uh2'],
-							// 'penyesuaian_uh2'           => $dt['penyesuaian_uh2'],
-							'grand_total_uh'            => $dt['grand_total_uh'],
-							'by_transportasi_berangkat' => $dt['by_transportasi_berangkat'],
-							'by_transportasi_pulang'    => $dt['by_transportasi_pulang'],
-							'total_by_transportasi'     => $dt['total_by_transportasi'],
-							'durasi_menginap'           => $dt['durasi_menginap'],
-							'menginap_dari'             => $dt['menginap_dari'],
-							'menginap_sampai'           => $dt['menginap_sampai'],
-							'tarif_penginapan'          => $dt['tarif_penginapan'],
-							// 'durasi_menginap2'          => $dt['durasi_menginap2'],
-							// 'menginap_dari2'            => $dt['menginap_dari2'],
-							// 'menginap_sampai2'          => $dt['menginap_sampai2'],
-							'tarif_penginapan2'         => $dt['tarif_penginapan2'],
-							// 'durasi_menginap3'          => $dt['durasi_menginap3'],
-							// 'menginap_dari3'            => $dt['menginap_dari3'],
-							// 'menginap_sampai3'          => $dt['menginap_sampai3'],
-							// 'tarif_penginapan3'         => $dt['tarif_penginapan3'],
-							'total_by_penginapan'       => $dt['total_by_penginapan'],
-							// 'pengeluaran1'              => $dt['pengeluaran1'],
-							// 'pengeluaran2'              => $dt['pengeluaran2'],
-							// 'pengeluaran3'              => $dt['pengeluaran3'],
-							// 'pengeluaran4'              => $dt['pengeluaran4'],
-							'pengeluaran_riil'          => $dt['pengeluaran_riil'],
-							// 'total_biaya_spd'           => $dt['total_biaya_spd'],
-							'grand_total'               => $dt['grand_total'],
-							'uang_muka'                 => $dt['uang_muka'],
-							'kredit'                    => $dt['kredit'],
-							'total_bayar'               => $dt['total_bayar'],
-							'kurang_lebih_bayar'        => $dt['kurang_lebih_bayar'],
-							'status'                    => $dt['status'],
-							'tgl_bayar'                 => $dt['tgl_bayar'],
-							// 'ket'                       => $dt['ket'],
-							'ls'                        => $dt['ls'],
-							'dipa'                      => $dt['dipa'],
-							// 'isi_laporan'               => $dt['isi_laporan'],
-							// 'kuitansi'                  => $dt['kuitansi'],
-							'sort'                      => $dt['sort']
-						);
-						// print_r($datas);
-						$inser = $this->model_pegawai->create('spd', $datas);
-						$insers = $this->model_pegawai->create('spd_pegawai', $datas);
+							$datas = array(
+								'nip_ppk'                   => $dt['nip_ppk'],
+								'nip_bendahara'             => $dt['nip_bendahara'],
+								// 'nip_atasan'                => $dt['nip_atasan'],
+								'nip_pegawai'               => $dt['nip_pegawai'],
+								'no_spd'                    => $dt['no_spd'],
+								'tgl_spd'                   => $dt['tgl_spd'],
+								'maksud'                    => $dt['maksud'],
+								'kendaraan'                 => $dt['kendaraan'],
+								'lamanya'                   => $dt['lamanya'],
+								'tgl_berangkat'             => $dt['tgl_berangkat'],
+								'tujuan1'                   => $dt['tujuan1'],
+								'tujuan2'                   => $dt['tujuan2'],
+								'tujuan3'                   => $dt['tujuan3'],
+								'tujuan4'                   => $dt['tujuan4'],
+								'tgl_selesai'               => $dt['tgl_selesai'],
+								'no_st'                     => $dt['no_st'],
+								'tgl_st'                    => $dt['tgl_st'],
+								'uang_harian'               => $dt['uang_harian'],
+								'jlh_hari'                  => $dt['jlh_hari'],
+								'total_uh'                  => $dt['total_uh'],
+								'penyesuaian_uh'            => $dt['penyesuaian_uh'],
+								'uang_harian2'              => $dt['uang_harian2'],
+								// 'jlh_hari2'                 => $dt['jlh_hari2'],
+								// 'total_uh2'                 => $dt['total_uh2'],
+								// 'penyesuaian_uh2'           => $dt['penyesuaian_uh2'],
+								'grand_total_uh'            => $dt['grand_total_uh'],
+								'by_transportasi_berangkat' => $dt['by_transportasi_berangkat'],
+								'by_transportasi_pulang'    => $dt['by_transportasi_pulang'],
+								'total_by_transportasi'     => $dt['total_by_transportasi'],
+								'durasi_menginap'           => $dt['durasi_menginap'],
+								'menginap_dari'             => $dt['menginap_dari'],
+								'menginap_sampai'           => $dt['menginap_sampai'],
+								'tarif_penginapan'          => $dt['tarif_penginapan'],
+								// 'durasi_menginap2'          => $dt['durasi_menginap2'],
+								// 'menginap_dari2'            => $dt['menginap_dari2'],
+								// 'menginap_sampai2'          => $dt['menginap_sampai2'],
+								'tarif_penginapan2'         => $dt['tarif_penginapan2'],
+								// 'durasi_menginap3'          => $dt['durasi_menginap3'],
+								// 'menginap_dari3'            => $dt['menginap_dari3'],
+								// 'menginap_sampai3'          => $dt['menginap_sampai3'],
+								// 'tarif_penginapan3'         => $dt['tarif_penginapan3'],
+								'total_by_penginapan'       => $dt['total_by_penginapan'],
+								// 'pengeluaran1'              => $dt['pengeluaran1'],
+								// 'pengeluaran2'              => $dt['pengeluaran2'],
+								// 'pengeluaran3'              => $dt['pengeluaran3'],
+								// 'pengeluaran4'              => $dt['pengeluaran4'],
+								'pengeluaran_riil'          => $dt['pengeluaran_riil'],
+								// 'total_biaya_spd'           => $dt['total_biaya_spd'],
+								'grand_total'               => $dt['grand_total'],
+								'uang_muka'                 => $dt['uang_muka'],
+								'kredit'                    => $dt['kredit'],
+								'total_bayar'               => $dt['total_bayar'],
+								'kurang_lebih_bayar'        => $dt['kurang_lebih_bayar'],
+								'status'                    => $dt['status'],
+								'tgl_bayar'                 => $dt['tgl_bayar'],
+								// 'ket'                       => $dt['ket'],
+								'ls'                        => $dt['ls'],
+								'dipa'                      => $dt['dipa'],
+								// 'isi_laporan'               => $dt['isi_laporan'],
+								// 'kuitansi'                  => $dt['kuitansi'],
+								'sort'                      => $dt['sort']
+							);
+							// print_r($datas);
+							$inser = $this->model_pegawai->create('spd', $datas);
+							$insers = $this->model_pegawai->create('spd_pegawai', $datas);
 
-						if ($inser) {
-							$insert++;
-						}
-
+							if ($inser) {
+								$insert++;
+							}
 						}
 					}
 				}

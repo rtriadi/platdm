@@ -20,6 +20,26 @@ class Model_pegawai extends CI_Model
 		$this->db->join('pegawai', 'pegawai.nip = spd.nip_pegawai');
 		$this->db->join('city', 'city.id = spd.tujuan1');
 		$this->db->join('province', 'province.id = city.province_id');
+		$this->db->where('spd.status_ppk', '1');
+		if ($nip != null) {
+			$this->db->where('spd.nip_pegawai', $nip);
+		}
+		if ($id != null) {
+			$this->db->where('spd.id', $id);
+		}
+		$this->db->order_by('spd.tgl_spd', 'desc');
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function getApproveSPDbyNip($nip = null, $id = null)
+	{
+		$this->db->select('spd.*, pegawai.*, city.name as city_name, province.name as province_name');
+		$this->db->from('spd');
+		$this->db->join('pegawai', 'pegawai.nip = spd.nip_pegawai');
+		$this->db->join('city', 'city.id = spd.tujuan1');
+		$this->db->join('province', 'province.id = city.province_id');
+		$this->db->where('spd.status_ppk', '0');
 		if ($nip != null) {
 			$this->db->where('spd.nip_pegawai', $nip);
 		}

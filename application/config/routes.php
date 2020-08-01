@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['spdku'] = 'controller_pegawai/spdku';
+$route['spdku/approve_spdku'] = 'controller_pegawai/approve_spdku';
 $route['spdku/laporan/pengeluaran_riil/(:num)'] = 'controller_pegawai/laporan_pengeluaran_riil/$1';
 $route['spdku/laporan/pelaksanaan_st/(:num)'] = 'controller_pegawai/laporan_pelaksanaan_st/$1';
 $route['spdku/rincian/(:num)'] = 'controller_pegawai/spdku_rincian/$1';

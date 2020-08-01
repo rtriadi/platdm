@@ -8,8 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -203,13 +204,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</p>
 								</a>
 								<ul class="nav nav-treeview">
-								    <li class="nav-item">
+									<li class="nav-item">
 										<a href="<?= site_url('pagu/rekap_pagu') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap_pagu' ? 'active' : '' ?>">
 											<i class="far fa-circle nav-icon"></i>
 											<p>Rekap</p>
 										</a>
 									</li>
-								    <li class="nav-item">
+									<li class="nav-item">
 										<a href="<?= site_url('pagu') ?>" class="nav-link <?= $this->uri->segment(2) == '' ? 'active' : '' ?>">
 											<i class="far fa-circle nav-icon"></i>
 											<p>Pagu</p>
@@ -313,8 +314,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</li>
 						<?php endif ?>
 						<?php if ($this->fungsi->user_login()->level == 4) : ?>
+							<?php if ($this->fungsi->user_login()->ppk == 1) : ?>
+								<li class="nav-item">
+									<a href="<?= base_url() ?>rekap" class="nav-link <?= $this->uri->segment(1) == 'rekap' ? 'active' : '' ?>">
+										<i class="nav-icon fas fa-file"></i>
+										<p>
+											Rekap SPD
+										</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="<?= site_url('spdku/approve_spdku') ?>" class="nav-link <?= $this->uri->segment(2) == 'approve_spdku' ? 'active' : null ?>">
+										<i class="nav-icon fas fa-clipboard-check"></i>
+										<p>
+											Approve SPD
+										</p>
+									</a>
+								</li>
+							<?php endif ?>
 							<li class="nav-item">
-								<a href="<?= site_url('spdku') ?>" class="nav-link <?= $this->uri->segment(1) == 'spdku' ? 'active' : null ?>">
+								<a href="<?= site_url('spdku') ?>" class="nav-link <?= $this->uri->segment(1) == 'spdku' && $this->uri->segment(2) != 'approve_spdku' ? 'active' : null ?>">
 									<i class="nav-icon fas fa-book"></i>
 									<p>
 										SPD
@@ -330,12 +349,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</a>
 							</li>
 							<?php if (($this->fungsi->user_login()->ppk == 1) or ($this->fungsi->user_login()->bendahara == 1) or ($this->fungsi->user_login()->kepala_kantor == 1)) : ?>
-							<li class="nav-item">
-								<a href="<?= site_url('pagu/rekap_pagu') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap_pagu' ? 'active' : '' ?>">
-											<i class="nav-icon fas fa-archive"></i>
-											<p>Rekap Pagu</p>
-										</a>
-							</li>
+								<li class="nav-item">
+									<a href="<?= site_url('pagu/rekap_pagu') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap_pagu' ? 'active' : '' ?>">
+										<i class="nav-icon fas fa-archive"></i>
+										<p>Rekap Pagu</p>
+									</a>
+								</li>
 							<?php endif ?>
 						<?php endif ?>
 						<li class="nav-item">

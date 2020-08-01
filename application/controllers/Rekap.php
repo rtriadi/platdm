@@ -1,19 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rekap extends CI_Controller {
+class Rekap extends CI_Controller
+{
 
     function __construct()
     {
         parent::__construct();
         check_not_login();
-        check_admin();
+        /* check_admin(); */
         $this->load->model('spd_admin_m');
         $this->load->library('form_validation');
     }
 
-	public function index()
-	{
+    public function index()
+    {
         if ($this->fungsi->user_login()->kantor == 'KP2KP Limboto') {
             $sort = '1';
             $query_peg = $this->spd_admin_m->getPegawaiByKantor($this->fungsi->user_login()->kantor);
@@ -27,7 +28,7 @@ class Rekap extends CI_Controller {
             $sort = '0';
             $query_peg = $this->spd_admin_m->getPegawai();
         }
-        
+
         $data = array(
             'page'   => 'Tambah',
             'peg'    => $query_peg,
@@ -35,7 +36,7 @@ class Rekap extends CI_Controller {
             'kantor'  => $this->fungsi->user_login()->kantor
         );
         $this->template->load('template', 'rekap', $data);
-		// $this->template->load('template', 'rekap');
+        // $this->template->load('template', 'rekap');
     }
 
     public function rekapSPD()
@@ -96,13 +97,16 @@ class Rekap extends CI_Controller {
         );
         $this->template->load('template', 'rekap-dipa', $data);
     }
-    
+
     public function add()
     {
         $this->form_validation->set_rules('fullname', 'Nama', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[tbl_user.username]');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
-        $this->form_validation->set_rules('passconf', 'Konfirmasi Password', 'required|matches[password]',
+        $this->form_validation->set_rules(
+            'passconf',
+            'Konfirmasi Password',
+            'required|matches[password]',
             array('matches' => '%s tidak sesuai dengan password')
         );
         $this->form_validation->set_rules('level', 'Level', 'required');
@@ -118,10 +122,10 @@ class Rekap extends CI_Controller {
         } else {
             $post = $this->input->post(null, TRUE);
             $this->rekap_m->add($post);
-            if($this->db->affected_rows() > 0) {
+            if ($this->db->affected_rows() > 0) {
                 echo "<script>alert('Data berhasil disimpan');</script>";
             }
-            echo "<script>window.location='".site_url('user')."';</script>";
+            echo "<script>window.location='" . site_url('user') . "';</script>";
         }
     }
 
@@ -129,18 +133,24 @@ class Rekap extends CI_Controller {
     {
         $this->form_validation->set_rules('fullname', 'Nama', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|callback_username_check');
-        if($this->input->post('password')) {
+        if ($this->input->post('password')) {
             $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
-            $this->form_validation->set_rules('passconf', 'Konfirmasi Password', 'matches[password]',
+            $this->form_validation->set_rules(
+                'passconf',
+                'Konfirmasi Password',
+                'matches[password]',
                 array('matches' => '%s tidak sesuai dengan password')
             );
         }
-        if($this->input->post('passconf')) {
-            $this->form_validation->set_rules('passconf', 'Konfirmasi Password', 'matches[password]',
+        if ($this->input->post('passconf')) {
+            $this->form_validation->set_rules(
+                'passconf',
+                'Konfirmasi Password',
+                'matches[password]',
                 array('matches' => '%s tidak sesuai dengan password')
             );
         }
-        
+
         $this->form_validation->set_rules('level', 'Level', 'required');
 
         $this->form_validation->set_message('required', '%s masih kosong, silahkan isi');
@@ -151,20 +161,20 @@ class Rekap extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) {
             $query = $this->rekap_m->get($id);
-            if($query->num_rows() > 0) {
+            if ($query->num_rows() > 0) {
                 $data['row'] = $query->row();
                 $this->template->load('template', 'user/rekap_form_edit', $data);
             } else {
                 echo "<script>alert('Data tidak ditemukan');";
-                echo "window.location='".site_url('user')."';</script>";
+                echo "window.location='" . site_url('user') . "';</script>";
             }
         } else {
             $post = $this->input->post(null, TRUE);
             $this->rekap_m->edit($post);
-            if($this->db->affected_rows() > 0) {
+            if ($this->db->affected_rows() > 0) {
                 echo "<script>alert('Data berhasil disimpan');</script>";
             }
-            echo "<script>window.location='".site_url('user')."';</script>";
+            echo "<script>window.location='" . site_url('user') . "';</script>";
         }
     }
 
@@ -172,7 +182,7 @@ class Rekap extends CI_Controller {
     {
         $post = $this->input->post(null, TRUE);
         $query = $this->db->query("SELECT * FROM tbl_user WHERE username = '$post[username]' AND rekap_id != '$post[rekap_id]'");
-        if($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) {
             $this->form_validation->set_message('username_check', '{field} ini sudah dipakai, silahkan ganti');
             return FALSE;
         } else {
@@ -184,9 +194,9 @@ class Rekap extends CI_Controller {
     {
         $id = $this->input->post('rekap_id');
         $this->rekap_m->delete($id);
-        if($this->db->affected_rows() > 0) {
+        if ($this->db->affected_rows() > 0) {
             echo "<script>alert('Data berhasil dihapus');</script>";
         }
-        echo "<script>window.location='".site_url('user')."';</script>";
+        echo "<script>window.location='" . site_url('user') . "';</script>";
     }
 }
