@@ -330,8 +330,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							
 							<?php if ($this->fungsi->user_login()->ppk == 1) : ?>
 							<li class="nav-item">
-								<a href="<?= base_url() ?>rekap" class="nav-link <?= $this->uri->segment(1) == 'rekap' ? 'active' : '' ?>">
-									<i class="nav-icon fas fa-file"></i>
+								<a href="<?= site_url('pegawai/approveppk') ?>" class="nav-link <?= $this->uri->segment(2) == 'approveppk' ? 'active' : '' ?>">
+									<i class="nav-icon fas fa-check"></i>
 									<p>
 										Approve RPD
 									</p>
@@ -767,7 +767,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			$.ajax({
 				type: 'POST',
 				dataType: 'JSON',
-				url: '<?= site_url('spd_admin/ceklis_approved') ?>',
+				url: '<?= site_url('pegawai/ceklis_approved') ?>',
 				data: {
 					mode: mode,
 					id: id
@@ -778,7 +778,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					success = data.success;
 					$("#heading").html(success);
 					$("#body").html(message);
-					window.location = "<?= site_url('spd_admin/approved') ?>";
+					window.location = "<?= site_url('pegawai/approveppk') ?>";
 				}
 			});
 		});

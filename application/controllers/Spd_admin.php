@@ -143,7 +143,7 @@ class Spd_admin extends CI_Controller {
             $data['row'] = $this->spd_admin_m->getByStatus($status);
             $data['total'] = $this->spd_admin_m->total_submenu('0', $status);
         }
-        $data['page'] = "Status OK";
+        $data['page'] = "Approved oleh PPK";
         $this->template->load('template', 'spd-admin', $data);
     }
 
