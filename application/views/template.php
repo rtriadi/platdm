@@ -173,6 +173,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</a>
 									</li>
 									<li class="nav-item">
+										<a href="<?= site_url('spd_admin/approved') ?>" class="nav-link <?= $this->uri->segment(2) == 'approved' ? 'active' : '' ?>">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Approved oleh PPK</p>
+										</a>
+									</li>
+									<li class="nav-item">
 										<a href="<?= site_url('spd_admin/telah_bayar') ?>" class="nav-link <?= $this->uri->segment(2) == 'telah_bayar' ? 'active' : '' ?>">
 											<i class="far fa-circle nav-icon"></i>
 											<p>Telah Bayar</p>
@@ -321,14 +327,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</p>
 								</a>
 							</li>
+							
+							<?php if ($this->fungsi->user_login()->ppk == 1) : ?>
 							<li class="nav-item">
-								<a href="<?= site_url('slipgajiku/' . $this->fungsi->user_login()->nip) ?>" class="nav-link <?= $this->uri->segment(1) == 'slipgajiku' ? 'active' : null ?>">
-									<i class="nav-icon fas fa-wallet"></i>
+								<a href="<?= base_url() ?>rekap" class="nav-link <?= $this->uri->segment(1) == 'rekap' ? 'active' : '' ?>">
+									<i class="nav-icon fas fa-file"></i>
 									<p>
-										Keuangan
+										Approve RPD
 									</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="<?= base_url() ?>rekap" class="nav-link <?= $this->uri->segment(1) == 'rekap' ? 'active' : '' ?>">
+									<i class="nav-icon fas fa-file"></i>
+									<p>
+										Rekap SPD
+									</p>
+								</a>
+							</li>
+							<?php endif ?>
 							<?php if (($this->fungsi->user_login()->ppk == 1) or ($this->fungsi->user_login()->bendahara == 1) or ($this->fungsi->user_login()->kepala_kantor == 1)) : ?>
 							<li class="nav-item">
 								<a href="<?= site_url('pagu/rekap_pagu') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap_pagu' ? 'active' : '' ?>">
@@ -337,6 +354,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</a>
 							</li>
 							<?php endif ?>
+							
+							<li class="nav-item">
+								<a href="<?= site_url('slipgajiku/' . $this->fungsi->user_login()->nip) ?>" class="nav-link <?= $this->uri->segment(1) == 'slipgajiku' ? 'active' : null ?>">
+									<i class="nav-icon fas fa-wallet"></i>
+									<p>
+										Keuangan
+									</p>
+								</a>
+							</li>
 						<?php endif ?>
 						<li class="nav-item">
 							<a href="<?= site_url('akunku') ?>" class="nav-link <?= $this->uri->segment(1) == 'akunku' ? 'active' : null ?>">
@@ -774,7 +800,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						success = data.success;
 						$("#heading").html(success);
 						$("#body").html(message);
-						window.location = "<?= site_url('spd_admin/ok') ?>";
+						window.location = "<?= site_url('spd_admin/approved') ?>";
 					}
 				});
 			}

@@ -124,6 +124,29 @@ class Spd_admin extends CI_Controller {
         $this->template->load('template', 'spd-admin', $data);
     }
 
+    public function approved()
+	{
+        $status = '3';
+        if ($this->fungsi->user_login()->kantor == 'KP2KP Limboto') {
+            $sort = '1';
+            $data['row'] = $this->spd_admin_m->getBySort($sort, $status);
+            $data['total'] = $this->spd_admin_m->total_submenu($sort, $status);
+        } elseif ($this->fungsi->user_login()->kantor == 'KP2KP Tilamuta') {
+            $sort = '2';
+            $data['row'] = $this->spd_admin_m->getBySort($sort, $status);
+            $data['total'] = $this->spd_admin_m->total_submenu($sort, $status);
+        } elseif ($this->fungsi->user_login()->kantor == 'KP2KP Marissa') {
+            $sort = '3';
+            $data['row'] = $this->spd_admin_m->getBySort($sort, $status);
+            $data['total'] = $this->spd_admin_m->total_submenu($sort, $status);
+        } else {
+            $data['row'] = $this->spd_admin_m->getByStatus($status);
+            $data['total'] = $this->spd_admin_m->total_submenu('0', $status);
+        }
+        $data['page'] = "Status OK";
+        $this->template->load('template', 'spd-admin', $data);
+    }
+
     public function spd_batal()
 	{
         $status = '5';
@@ -378,7 +401,7 @@ class Spd_admin extends CI_Controller {
     public function ceklis_reapproved()
 	{
             $id = $_POST['id'];
-		    $str = $this->db->query("UPDATE spd SET status = '2' where id = $id");
+		    $str = $this->db->query("UPDATE spd SET status = '3' where id = $id");
 			$message = 'Hey my button is disable!!';
 			$success = 'Disabled';
 			echo json_encode(array('message' => $message, 'success' => $success));
