@@ -420,11 +420,11 @@ if ($hit == 0) {
     <section class="content">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">Rekap <?= $jenis == 1 ? 'Pembuatan' : 'Pembayaran' ?> SPD</h3>
                         <div style="float: right">
-                            <a href="<?= site_url('rekap') ?>" class="btn btn-sm btn-success">
+                            <a href="<?= site_url('rekap') ?>" class="btn btn-sm bg-yellow">
                                 <i class="fa fa-user-undo"></i> Back
                             </a>
                         </div>
@@ -433,8 +433,8 @@ if ($hit == 0) {
                     <div class="card-body table-responsive">
 					
 	<!-- <table id="example23" class="table table-responsive"> -->
-	<table id="example23" class="table table-bordered table-striped">
-		<thead>
+	<table id="example23" class="table table-bordered table-sm">
+		<thead class="thead-light">
 			<tr>
 				<th rowspan="2">No</th>
 				<th rowspan="2">Pegawai</th>

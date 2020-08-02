@@ -8,7 +8,7 @@ class Rekap extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        /* check_admin(); */
+        //check_admin();
         $this->load->model('spd_admin_m');
         $this->load->library('form_validation');
     }

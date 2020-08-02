@@ -24,17 +24,17 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="card">
+					<div class="card card-info">
 						<div class="card-header">
 							<h3 class="card-title">Data Pagu</h3>
 							<div style="float: right">
-								<button class="btn btn-sm bg-teal" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i> Tambah</button>
+								<button class="btn btn-sm bg-yellow" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i> Tambah</button>
 							</div>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body table-responsive">
-							<table id="example1" class="table table-bordered table-striped">
-								<thead>
+							<table id="example1" class="table table-bordered">
+								<thead class="thead-light">
 									<tr>
 										<th>No.</th>
 										<th>Dipa Pagu</th>

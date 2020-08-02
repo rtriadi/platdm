@@ -146,7 +146,7 @@
 						<div class="inner">
 							<h3><?php 
 							$nip = $this->fungsi->user_login()->nip;
-							$query = $this->db->query("SELECT count(id) as cid FROM spd WHERE nip_pegawai=$nip AND status!='4' AND tujuan1!=''");
+							$query = $this->db->query("SELECT count(id) as cid FROM spd WHERE nip_pegawai=$nip AND status<'4' AND tujuan1!=''");
 							foreach($query->result() as $key) {
 								echo $key->cid;
 							}
