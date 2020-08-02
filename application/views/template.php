@@ -42,7 +42,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<div class="wrapper">
 
 		<!-- Navbar -->
-		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<nav class="main-header navbar navbar-expand navbar-primary navbar-dark">
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
@@ -99,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<aside class="main-sidebar sidebar-light-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="<?= site_url('dashboard') ?>" class="brand-link">
 				<img src="<?= base_url(); ?>assets/img/logo-dm.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -171,6 +171,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<a href="<?= site_url('spd_admin/ok') ?>" class="nav-link <?= $this->uri->segment(2) == 'ok' ? 'active' : '' ?>">
 											<i class="far fa-circle nav-icon"></i>
 											<p>Status OK</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= site_url('spd_admin/approved') ?>" class="nav-link <?= $this->uri->segment(2) == 'approved' ? 'active' : '' ?>">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Approved oleh PPK</p>
 										</a>
 									</li>
 									<li class="nav-item">
@@ -340,14 +346,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</p>
 								</a>
 							</li>
+							
+							<?php if ($this->fungsi->user_login()->ppk == 1) : ?>
 							<li class="nav-item">
-								<a href="<?= site_url('slipgajiku/' . $this->fungsi->user_login()->nip) ?>" class="nav-link <?= $this->uri->segment(1) == 'slipgajiku' ? 'active' : null ?>">
-									<i class="nav-icon fas fa-wallet"></i>
+								<a href="<?= site_url('pegawai/approveppk') ?>" class="nav-link <?= $this->uri->segment(2) == 'approveppk' ? 'active' : '' ?>">
+									<i class="nav-icon fas fa-check"></i>
 									<p>
-										Keuangan
+										Approve RPD
 									</p>
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="<?= base_url() ?>rekap" class="nav-link <?= $this->uri->segment(1) == 'rekap' ? 'active' : '' ?>">
+									<i class="nav-icon fas fa-file"></i>
+									<p>
+										Rekap SPD
+									</p>
+								</a>
+							</li>
+							<?php endif ?>
 							<?php if (($this->fungsi->user_login()->ppk == 1) or ($this->fungsi->user_login()->bendahara == 1) or ($this->fungsi->user_login()->kepala_kantor == 1)) : ?>
 								<li class="nav-item">
 									<a href="<?= site_url('pagu/rekap_pagu') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap_pagu' ? 'active' : '' ?>">
@@ -356,6 +373,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</a>
 								</li>
 							<?php endif ?>
+							
+							<li class="nav-item">
+								<a href="<?= site_url('slipgajiku/' . $this->fungsi->user_login()->nip) ?>" class="nav-link <?= $this->uri->segment(1) == 'slipgajiku' ? 'active' : null ?>">
+									<i class="nav-icon fas fa-wallet"></i>
+									<p>
+										Keuangan
+									</p>
+								</a>
+							</li>
 						<?php endif ?>
 						<li class="nav-item">
 							<a href="<?= site_url('akunku') ?>" class="nav-link <?= $this->uri->segment(1) == 'akunku' ? 'active' : null ?>">
@@ -760,7 +786,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			$.ajax({
 				type: 'POST',
 				dataType: 'JSON',
-				url: '<?= site_url('spd_admin/ceklis_approved') ?>',
+				url: '<?= site_url('pegawai/ceklis_approved') ?>',
 				data: {
 					mode: mode,
 					id: id
@@ -771,7 +797,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					success = data.success;
 					$("#heading").html(success);
 					$("#body").html(message);
-					window.location = "<?= site_url('spd_admin/approved') ?>";
+					window.location = "<?= site_url('pegawai/approveppk') ?>";
 				}
 			});
 		});
@@ -793,7 +819,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						success = data.success;
 						$("#heading").html(success);
 						$("#body").html(message);
-						window.location = "<?= site_url('spd_admin/ok') ?>";
+						window.location = "<?= site_url('spd_admin/approved') ?>";
 					}
 				});
 			}

@@ -22,8 +22,8 @@
 						<h3 class="card-title">Rekap SPD Outstanding</h3>
 					</div>
 					<div class="card-body">
-						<table id="example23" class="table table-bordered table-striped">
-							<thead>
+						<table id="example23" class="table table-bordered table-sm">
+							<thead class="thead-light">
 								<tr>
 									<th>KET/DIPA</th>
 									<th>PAGU</th>

@@ -27,18 +27,18 @@
                 			aria-hidden="true">×</span> </button>
                 </div>
                 <?php endif; ?>
-			<div class="card">
+			<div class="card card-info">
 				<div class="card-header">
 					<h3 class="card-title">Pegawai <?= $this->fungsi->user_login()->kantor; ?></h3>
-					<a href="<?= site_url('pegawai/add') ?>" class="btn btn-sm btn-info" style="float: right; margin-left: 2px"><i
+					<a href="<?= site_url('pegawai/add') ?>" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px"><i
 							class="fas fa-plus"></i> Tambah </a>
-                    <a class="btn btn-sm btn-success" style="float: right;" data-toggle="modal" data-target="#pegawai"><i
+                    <a class="btn btn-sm bg-yellow" style="float: right;" data-toggle="modal" data-target="#pegawai"><i
 							class="fas fa-upload"></i>Import</a>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body table-responsive">
-					<table id="example1" class="table table-bordered table-striped">
-						<thead>
+					<table id="example1" class="table table-bordered table-sm">
+						<thead class="thead-light">
 							<tr>
 								<th>No</th>
 								<th>Aksi</th>

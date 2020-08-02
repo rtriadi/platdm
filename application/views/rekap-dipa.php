@@ -20,19 +20,19 @@
     <section class="content">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title"><?= $page ?> <?= $this->fungsi->user_login()->kantor; ?></h3>
                         <div style="float: right">
-							<a href="<?= site_url('rekap') ?>" class="btn btn-sm btn-success">
+							<a href="<?= site_url('rekap') ?>" class="btn btn-sm bg-yellow">
 								<i class="fa fa-user-undo"></i> Back
 							</a>
 						</div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example23" class="table table-bordered table-striped">
-                            <thead>
+                        <table id="example23" class="table table-bordered table-sm">
+                            <thead class="thead-light">
                                 <tr>
                                     <th width='1%'>No</th>
                                     <th>DIPA</th>

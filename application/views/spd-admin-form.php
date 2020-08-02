@@ -21,12 +21,12 @@
 		<div class="col-12">
 			<div class="card">
 				<!-- DataTales Example -->
-				<div class="card card-primary">
+				<div class="card card-info">
 					<div class="card-header">
 						<h3 class="card-title">
 							<?= ucfirst($page) ?> SPD Admin <?= $kantor ?></h3>
 						<div style="float: right">
-							<a href="<?= site_url('spd_admin') ?>" class="btn btn-sm btn-success">
+							<a href="<?= site_url('spd_admin') ?>" class="btn btn-sm bg-yellow">
 								<i class="fa fa-user-undo"></i> Back
 							</a>
 						</div>
@@ -155,7 +155,7 @@
 							</div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>Lamanya Perjalanan <sup class="text-danger">*</sup></label>
                                         <input type="number" name="lamanya" value="<?= $row->lamanya ?>" class="form-control" placeholder="Lamanya Perjalanan" required>
                                     </div>
@@ -167,10 +167,18 @@
                                         <label>Tanggal Selesai <sup class="text-danger">*</sup></label>
                                         <input type="date" name="tgl_selesai" value="<?= $row->tgl_selesai ?>" class="form-control" required>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>Uang Muka</label>
                                         <input type="number" name="uang_muka" value="<?= $row->uang_muka ?>" class="form-control" placeholder="Uang Muka">
                                         <!--<small>*Kosongkan jika tidak ada</small>-->
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>DIPA <sup class="text-danger">*</sup></label>
+                                        <select name="dipa" class="form-control" required>
+                                            <option value="">- Pilih DIPA -</option>
+                                            <option value="501" <?= "501" == $row->dipa ? "selected" : null?>>501</option>
+                                            <option value="994" <?= "994" == $row->dipa ? "selected" : null?>>994</option>
+                                        </select>
                                     </div>
                                 </div>
 							</div>
