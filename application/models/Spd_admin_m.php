@@ -128,6 +128,7 @@ class Spd_admin_m extends CI_Model
             'no_st'         => $post['no_st'],
             'tgl_st'        => $post['tgl_st'],
             'uang_muka'     => $post['uang_muka'],
+            'dipa'          => $post['dipa'],
             'status'        => $post['status'],
             'sort'          => $post['sort']
         );
@@ -154,6 +155,7 @@ class Spd_admin_m extends CI_Model
             'no_st'         => $post['no_st'],
             'tgl_st'        => $post['tgl_st'],
             'uang_muka'     => $post['uang_muka'],
+            'dipa'          => $post['dipa'],
             'status'        => $post['status'],
             'sort'          => $post['sort']
         );

@@ -233,6 +233,7 @@ class Spd_admin extends CI_Controller {
         $spd_admin->no_st          = null;
         $spd_admin->tgl_st         = null;
         $spd_admin->uang_muka      = null;
+        $spd_admin->dipa      = null;
         $spd_admin->status         = null;
 
             
