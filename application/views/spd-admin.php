@@ -94,7 +94,7 @@
 										<div class="modal-body">
 											<div class="form-group">
 												<label>Status</label>
-												<select class="form-control" name="pilih_status">
+												<select class="form-control" name="pilih_status" required>
 													<option value="">-Pilih Status-</option>
 													<option value="1">Berkas Diterima</option>
 													<option value="2">Ok</option>
@@ -110,6 +110,7 @@
 								</div>
 								<!-- /.modal-dialog -->
 							</div>
+						</form>
 						<table id="example1" class="table table-sm table-bordered" style="width: 100%;">
 							<thead class="thead-light">
 								<tr>
@@ -318,7 +319,6 @@
 								<?php endforeach ?>
 							</tbody>
 						</table>
-						</form>
 					</div>
 					<!-- /.card-body -->
 				</div>
