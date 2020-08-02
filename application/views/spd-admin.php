@@ -28,23 +28,14 @@
 						</button>
 					</div>
 				<?php endif; ?>
-				<div class="card card-info">
+				<div class="card">
 					<div class="card-header">
-<<<<<<< HEAD
 						<h3 class="card-title"><?= $page ?> <b>(Total : Rp. <?php foreach ($total->result() as $key => $datass) {
 																				echo number_format($datass->total_bayar);
 																			} ?>)</b></h3>
 						<a href="<?= site_url('spd_admin/export_excel') ?>" class="btn btn-sm btn-primary" style="float: right; margin-left: 2px"><i class="fas fa-download"></i> Excel </a>
 						<button type="button" class="btn btn-sm btn-success" style="float: right; margin-left: 2px" data-toggle="modal" data-target="#import"><i class="fa fa-upload"></i> Import</button>
 						<a href="<?= site_url('spd_admin/add') ?>" class="btn btn-sm btn-info" style="float: right;"><i class="fas fa-plus"></i> Tambah </a>
-=======
-						<h3 class="card-title"><?= $page ?> <b>(Total : Rp. <?php foreach ($total->result() as $key => $datass) { echo number_format($datass->total_bayar); } ?>)</b></h3>
-						<?php if ($this->fungsi->user_login()->ppk != 1) : ?>
-						<a href="<?= site_url('spd_admin/export_excel') ?>" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px"><i class="fas fa-download"></i> Excel </a>
-						<button type="button" class="btn btn-sm bg-yellow" style="float: right; margin-left: 2px; color:white" data-toggle="modal" data-target="#import"><i class="fa fa-upload"></i> Import</button>
-						<a href="<?= site_url('spd_admin/add') ?>" class="btn btn-sm bg-yellow" style="float: right;"><i class="fas fa-plus"></i> Tambah </a>
-						<?php endif ?>
->>>>>>> 250ab0d75c56bb0dc91a8460e1d9652ce8e74eee
 					</div>
 					<div class="modal fade" id="import">
 						<div class="modal-dialog">
@@ -103,7 +94,7 @@
 										<div class="modal-body">
 											<div class="form-group">
 												<label>Status</label>
-												<select class="form-control" name="pilih_status">
+												<select class="form-control" name="pilih_status" required>
 													<option value="">-Pilih Status-</option>
 													<option value="1">Berkas Diterima</option>
 													<option value="2">Ok</option>
@@ -119,14 +110,9 @@
 								</div>
 								<!-- /.modal-dialog -->
 							</div>
-<<<<<<< HEAD
 						</form>
 						<table id="example1" class="table table-bordered table-striped" style="width: 100%;">
 							<thead>
-=======
-						<table id="example1" class="table table-sm table-bordered" style="width: 100%;">
-							<thead class="thead-light">
->>>>>>> 250ab0d75c56bb0dc91a8460e1d9652ce8e74eee
 								<tr>
 									<th><input type="checkbox" id="check-all"><label for="check-all"> </label></th>
 									<!--<th>No</th>-->
@@ -137,6 +123,7 @@
 									<th>Kantor</th>
 									<th>Total Bayar</th>
 									<th>Rincian</th>
+									<th>Status PPK</th>
 									<th width="15% !important">Status</th>
 								</tr>
 							</thead>
@@ -146,7 +133,7 @@
 									<tr>
 										<td><input type="checkbox" class="check-item" name="id[]" value="<?= $data->id ?>" id="check<?= $data->id ?>"> <label for="check<?= $data->id ?>"> </label></td>
 										<!--<td><?= $no++ ?></td>-->
-										<td><?php if ($this->fungsi->user_login()->ppk != 1) { ?>
+										<td>
 											<div class="input-group-prepend">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
 													<i class="fa fa-info-circle"></i> Aksi
@@ -171,7 +158,7 @@
 											<?php if ($data->status == '4') { ?>
 												<label><i class="badge badge-success"><?= $data->ls ?> <br> <?= indo_date($data->tgl_bayar) ?> <br> <?= $data->dipa ?></i></label>
 											<?php } ?>
-											<?php } ?>
+
 										</td>
 										<td><?= $data->no_spd ?> </td>
 										<td><?= tgl_ind($data->tgl_spd) ?></td>
@@ -195,10 +182,6 @@
 											// } else { 
 											?>
 											<?php if ($data->status < 5) : ?>
-												<?php if ($this->fungsi->user_login()->ppk == 1) { ?>
-													<a href="<?= site_url('pegawai/print_rincian/') ?><?= $data->id ?>" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="Cetak Rincian" target="_blank"><i class="fas fa-print"></i> </a>
-												<?php }else{ ?>
-
 												<?php if ($data->status != '4') { ?>
 													<?php if ($data->tujuan1 != '') { ?>
 														<a href="<?= site_url('spdku/rincian/' . $data->id) ?>" class="btn btn-xs bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD">
@@ -220,58 +203,48 @@
 												<?php if ($data->kuitansi != null || $data->kuitansi != '') : ?>
 													<!--<a href="<?= site_url('uploads/kuitansi/' . $data->kuitansi) ?>" class="btn btn-xs btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Lihat Kuitansi" target="_blank"><i class="fas fa-file"></i> </a>-->
 												<?php endif ?>
-
-												<?php } ?>
 											<?php endif ?>
-											</td>
-
+											<?php //} 
+											?></td>
+										<td>
+											<input type="checkbox" data-toggle="toggle" data-off="Disabled" data-on="Enabled" <?= $data->status_ppk == 1 ? 'checked' : '' ?> disabled>
+											<small><label>Approved SPD oleh PPK</label></small>
+											<br>
+										</td>
 										<td>
 											<?php if ($data->status == '0') { ?>
 												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
-												<!-- <br>
-												<input type="checkbox" name="toggle5" id="toggle5_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle5_<?php //echo $data->id; ?>">OK</label></small>
 												<br>
-												<input type="checkbox" name="toggle7" id="toggle7_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle7_<?php //echo $data->id; ?>">Telah Bayar</label></small> -->
+												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
+												<br>
+												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
 											<?php } elseif ($data->status == '1') { ?>
 												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
 												<br>
 												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
-												<!-- <br>
-												<input type="checkbox" name="toggle7" id="toggle7_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle7_<?php //echo $data->id; ?>">Telah Bayar</label></small> -->
+												<br>
+												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
 											<?php } elseif ($data->status == '2') { ?>
-												<?php if ($this->fungsi->user_login()->ppk != 1) { ?>
 												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
 												<br>
 												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
 												<br>
-												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" disabled >
-												<small><label for="toggle6_<?php echo $data->id; ?>">Proses Approve PPK</label></small>
-												
-												<?php } else { ?>
-												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" >
-												<small><label for="toggle6_<?php echo $data->id; ?>">Approve RPD</label></small>
-												<?php } ?>
-												
-												<!-- <br>
-												<input type="checkbox" name="toggle7" id="toggle7_<?php //echo $data->id; ?>" value="<?php //echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
-												<small><label for="toggle7_<?php //echo $data->id; ?>">Telah Bayar</label></small> -->
+												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
+												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
 											<?php } elseif ($data->status == '3') { ?>
-												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
+												<input type="checkbox" name="toggle4" id="toggle4_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle4_<?php echo $data->id; ?>">Berkas Diterima</label></small>
 												<br>
-												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
+												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
-												<br>
-												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
-												<small><label for="toggle6_<?php echo $data->id; ?>">Approved</label></small>
 												<br>
 												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
@@ -281,9 +254,6 @@
 												<br>
 												<input type="checkbox" name="toggle5" id="toggle5_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
-												<br>
-												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
-												<small><label for="toggle6_<?php echo $data->id; ?>">Approved</label></small>
 												<br>
 												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
