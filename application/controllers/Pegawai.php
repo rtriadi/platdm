@@ -312,4 +312,11 @@ class Pegawai extends CI_Controller {
 		}
     }
 
+    public function print_rincian($id)
+	{
+        $data['row'] = $this->spd_admin_m->get($id);
+        //$this->template->load('template', 'spd-admin-print', $data);
+        $this->load->view('spd-admin-rincian', $data);
+    }
+
 }

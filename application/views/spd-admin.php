@@ -180,6 +180,10 @@
 											// } else { 
 											?>
 											<?php if ($data->status < 5) : ?>
+												<?php if ($this->fungsi->user_login()->ppk == 1) { ?>
+													<a href="<?= site_url('pegawai/print_rincian/') ?><?= $data->id ?>" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="bottom" title="Cetak Rincian" target="_blank"><i class="fas fa-print"></i> </a>
+												<?php }else{ ?>
+
 												<?php if ($data->status != '4') { ?>
     												<?php if ($data->tujuan1 != '') { ?>
     													<a href="<?= site_url('spdku/rincian/' . $data->id) ?>" class="btn btn-xs bg-teal" data-toggle="tooltip" data-placement="top" title="Rincian SPD">
@@ -201,9 +205,10 @@
 												<?php if ($data->kuitansi != null || $data->kuitansi != '') : ?>
 													<!--<a href="<?= site_url('uploads/kuitansi/' . $data->kuitansi) ?>" class="btn btn-xs btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Lihat Kuitansi" target="_blank"><i class="fas fa-file"></i> </a>-->
 												<?php endif ?>
+
+												<?php } ?>
 											<?php endif ?>
-											<?php //} 
-											?></td>
+											</td>
 
 										<td>
 											<?php if ($data->status == '0') { ?>
@@ -251,7 +256,7 @@
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
 												<br>
 												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
-												<small><label for="toggle6_<?php echo $data->id; ?>">Approve PPK</label></small>
+												<small><label for="toggle6_<?php echo $data->id; ?>">Approved</label></small>
 												<br>
 												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled">
 												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
@@ -263,7 +268,7 @@
 												<small><label for="toggle5_<?php echo $data->id; ?>">OK</label></small>
 												<br>
 												<input type="checkbox" name="toggle6" id="toggle6_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked disabled>
-												<small><label for="toggle6_<?php echo $data->id; ?>">Approve PPK</label></small>
+												<small><label for="toggle6_<?php echo $data->id; ?>">Approved</label></small>
 												<br>
 												<input type="checkbox" name="toggle7" id="toggle7_<?php echo $data->id; ?>" value="<?php echo $data->id; ?>" data-toggle="toggle" data-off="Disabled" data-on="Enabled" checked>
 												<small><label for="toggle7_<?php echo $data->id; ?>">Telah Bayar</label></small>
