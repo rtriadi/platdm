@@ -131,7 +131,7 @@
 									<tr>
 									    <td><input type="checkbox" class="check-item" name="id[]" value="<?= $data->id ?>" id="check<?= $data->id ?>"> <label for="check<?= $data->id ?>"> </label></td>
 										<!--<td><?= $no++ ?></td>-->
-										<td>
+										<td><?php if ($this->fungsi->user_login()->ppk != 1) { ?>
 											<div class="input-group-prepend">
 												<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
 													<i class="fa fa-info-circle"></i> Aksi
@@ -156,7 +156,7 @@
 											<?php if ($data->status == '4') { ?>
 												<label><i class="badge badge-success"><?= $data->ls ?> <br> <?= indo_date($data->tgl_bayar) ?> <br> <?= $data->dipa ?></i></label>
 											<?php } ?>
-
+											<?php } ?>
 										</td>
 										<td><?= $data->no_spd ?> </td>
 										<td><?= tgl_ind($data->tgl_spd) ?></td>
