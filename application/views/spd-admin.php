@@ -111,8 +111,8 @@
 								<!-- /.modal-dialog -->
 							</div>
 						</form>
-						<table id="example1" class="table table-bordered table-striped" style="width: 100%;">
-							<thead>
+						<table id="example1" class="table table-sm table-bordered" style="width: 100%;">
+							<thead class="thead-light">
 								<tr>
 									<th><input type="checkbox" id="check-all"><label for="check-all"> </label></th>
 									<!--<th>No</th>-->
@@ -302,7 +302,6 @@
 								<?php endforeach ?>
 							</tbody>
 						</table>
-
 					</div>
 					<!-- /.card-body -->
 				</div>
